@@ -56,36 +56,44 @@ function ObjectCookie(props) {
 
     return (
         <>
-            {/* Display Global cookie and Local cookie object  */}
             <p>ObjectCookie So Far:</p>
 
             <p>Thing to Remove: {removeThing}</p>
 
+            {/* Display Global cookie and Local cookie object  */}
             <p>Local Cookie Object: {renderLocalCookie()}</p>
             <p>THE Cookie Object: {renderTHECookie()}</p>
 
             <p>Patient First Name:</p>
             <input
-                placeholder="Enter THE cookie value"
                 type="text"
+                // change patientFirstName to the desired key for the key value pair
+                placeholder="Enter Patient First Name"
                 value={localCookies.patientFirstName}
+                // submitCookie takes in a SINGLE OBJECT
                 onChange={(e) => submitCookie({ key: 'patientFirstName', thing: e.target.value })}>
             </input>
 
             <p>Patient Last Name:</p>
             <input
-                placeholder="Enter THE cookie value"
                 type="text"
+                // Change patientLastName to the desired key for the key value pair
+                placeholder="Enter Patient Last Name"
                 value={localCookies.patientLastName}
+                // submitCookie takes in a SINGLE OBJECT
                 onChange={(e) => submitCookie({ key: 'patientLastName', thing: e.target.value })}>
             </input>
 
             <p>Patient Blood Type:</p>
             <select
                 name="Blood Type"
+                // Change bloodType to the variable you are capturing!!!
                 value={localCookies.bloodType}
                 onChange={(e) => submitCookie({ key: 'bloodType', thing: e.target.value })}
             >
+                {/* Edit options as needed! 
+                The value attribute is what is
+                taken in by the submit function */}
                 <option value="">--- Select Blood Type --- </option>
                 <option value="O+">O Positive</option>
                 <option value="O-">O Negative</option>
