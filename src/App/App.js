@@ -7,8 +7,6 @@ import ObjectCookie from '../ObjectCookie/ObjectCookie';
 
 function App() {
 
-  
-
   return (
     <div className="App">
 

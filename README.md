@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Cookie Experimentation and Development of Universal Submit Handling function.
 
 This react app is very dressed down. There is no server or database setup needed, simply npm install to get dependencies and npm start to see a few tests with inputs and their values.
 
