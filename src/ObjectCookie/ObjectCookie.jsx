@@ -23,6 +23,15 @@ function ObjectCookie(props) {
         if (cookies.bloodType === undefined) {
             setCookie('bloodType', '', { path: '/' });
         }
+        if (cookies.patientIDNumber === undefined) {
+            setCookie('patientIDNumber', '', { path: '/' });
+        }
+        if (cookies.eventSummary === undefined) {
+            setCookie('eventSummary', '', { path: '/' });
+        }
+        if (cookies.eventDay === undefined) {
+            setCookie('eventDay', '', { path: '/' });
+        }
 
 
 
@@ -74,6 +83,9 @@ function ObjectCookie(props) {
                 onChange={(e) => submitCookie({ key: 'patientFirstName', thing: e.target.value })}>
             </input>
 
+            <br />
+            <br />
+
             <p>Patient Last Name:</p>
             <input
                 type="text"
@@ -83,6 +95,45 @@ function ObjectCookie(props) {
                 // submitCookie takes in a SINGLE OBJECT
                 onChange={(e) => submitCookie({ key: 'patientLastName', thing: e.target.value })}>
             </input>
+
+            <br />
+            <br />
+
+            <p>Patient ID Number:</p>
+            <input
+                type="number"
+                // Change patientIDNumber to the desired key for the key value pair
+                placeholder="Enter Patient Last Name"
+                value={localCookies.patientIDNumber}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'patientIDNumber', thing: e.target.value })}>
+            </input>
+
+            <br />
+            <br />
+
+            <p>Patient Birthday:</p>
+            <form change={(e) => submitCookie({ key: 'patientIDNumber', thing: e.target.value })}>
+
+
+            </form>
+
+
+            <br />
+            <br />
+
+            <p>Event day:</p>
+            <input
+                type="date"
+                // Change patientIDNumber to the desired key for the key value pair
+                placeholder="Date of Birth"
+                value={localCookies.eventDay}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'eventDay', thing: e.target.value })}>
+            </input>
+
+            <br />
+            <br />
 
             <p>Patient Blood Type:</p>
             <select
@@ -104,6 +155,20 @@ function ObjectCookie(props) {
                 <option value="AB+">AB Positive</option>
                 <option value="AB-">AB Negative</option>
             </select>
+
+            <br />
+            <br />
+
+            <textarea
+                // Change patientIDNumber to the desired key for the key value pair
+                placeholder="Enter Summary of Events"
+                value={localCookies.eventSummary}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'eventSummary', thing: e.target.value })}>
+            </textarea>
+
+            <br />
+            <br />
 
 
             <p>Remove Cookie:</p>
