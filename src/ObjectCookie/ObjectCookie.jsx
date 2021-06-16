@@ -9,6 +9,7 @@ function ObjectCookie(props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     let [localCookies, setLocalCookies] = useState(cookies);
+    let [checkBox, setCheckBox] = useState(true);
 
     let [removeThing, setRemoveThing] = useState('');
 
@@ -32,17 +33,32 @@ function ObjectCookie(props) {
         if (cookies.eventDay === undefined) {
             setCookie('eventDay', '', { path: '/' });
         }
+        if (cookies.patientBirthDay === undefined) {
+            setCookie('patientBirthDay', '', { path: '/' });
+        }
+        if (cookies.patientBirthMonth === undefined) {
+            setCookie('patientBirthMonth', '', { path: '/' });
+        }
+        if (cookies.patientBirthYear === undefined) {
+            setCookie('patientBirthYear', '', { path: '/' });
+        }
+        if (cookies.woot === undefined) {
+            setCookie('woot', false, { path: '/' });
+        }
+        // if (cookies.dopewoot === undefined) {
+        //     setCookie('dopewoot', '', { path: '/' });
+        // }
 
 
-
+        console.log('Cookie:', cookies);
+        console.log('Local Cookie object', localCookies);
     }, [cookies])
-
 
     //___________________________________________#nAthAn___________________________________________
     // This function can handle the submit for every single input field this project will have 
     // They must be passed in as an object and are then extracted as a key value pair.
     function submitCookie(newCookie) {
-        console.log('setting THE cookie', newCookie.key, newCookie.value);
+        console.log('setting THE cookie', newCookie.key, newCookie.thing);
 
         setLocalCookies({ ...localCookies, [newCookie.key]: newCookie.thing });
 
@@ -72,6 +88,7 @@ function ObjectCookie(props) {
             {/* Display Global cookie and Local cookie object  */}
             <p>Local Cookie Object: {renderLocalCookie()}</p>
             <p>THE Cookie Object: {renderTHECookie()}</p>
+
 
             <p>Patient First Name:</p>
             <input
@@ -113,11 +130,68 @@ function ObjectCookie(props) {
             <br />
 
             <p>Patient Birthday:</p>
-            <form change={(e) => submitCookie({ key: 'patientIDNumber', thing: e.target.value })}>
+            <input
+                type="text"
+                // Change patientLastName to the desired key for the key value pair
+                placeholder="Day"
+                value={localCookies.patientBirthDay}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'patientBirthDay', thing: e.target.value })}>
+            </input>
+            <input
+                type="text"
+                // Change patientLastName to the desired key for the key value pair
+                placeholder="Month"
+                value={localCookies.patientBirthMonth}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'patientBirthMonth', thing: e.target.value })}>
+            </input>
+            <input
+                type="text"
+                // Change patientLastName to the desired key for the key value pair
+                placeholder="Year"
+                value={localCookies.patientBirthYear}
+                // submitCookie takes in a SINGLE OBJECT
+                onChange={(e) => submitCookie({ key: 'patientBirthYear', thing: e.target.value })}>
+            </input>
+
+            <br />
+            <br />
+
+            <p>Patient Binary Information: (Checkboxes, under construction)</p>
+            {/* let [checkBox, setCheckBox] = useState(false); */}
+
+            <input
+                type="checkbox" id="test" name="test" value={checkBox}
+                onChange={() => setCheckBox(!checkBox)}
+                checked={checkBox}></input>
+            <label for="test">Local Checked?</label>
+
+            <br />
+
+            {<p>Local Checked value: {`${checkBox}`}</p>}
+
+            <br />
+            <br />
 
 
-            </form>
+            <input
+                type="checkbox" id="woot" name="biInfo" value={localCookies.woot}
+                onClick={() => submitCookie({ key: 'woot', thing: !localCookies.woot })}
+                checked={localCookies.woot}></input>
+            <label for="woot">Do we w00t?</label>
 
+            <br />
+
+            {<p>Cookie Checked value: {`${localCookies.woot}`}</p>}
+
+            <br />
+
+            {/* <input
+                type="checkbox" id="dopewoot" name="biInfo" value={true}
+                onChange={(e) => submitCookie({ key: 'dopewoot', thing: e.target.value })}
+            ></input>
+            <label for="dopewoot">Do we #d0pEw00t?</label> */}
 
             <br />
             <br />
@@ -158,6 +232,8 @@ function ObjectCookie(props) {
 
             <br />
             <br />
+
+            <p>Summary of Events:</p>
 
             <textarea
                 // Change patientIDNumber to the desired key for the key value pair
