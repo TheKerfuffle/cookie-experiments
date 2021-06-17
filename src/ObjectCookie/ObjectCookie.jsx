@@ -1,6 +1,7 @@
 import { useCookies } from 'react-cookie';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import SymptomForm from '../SymptomForm/SymptomForm'
 
 
 
@@ -9,6 +10,7 @@ function ObjectCookie(props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     let [localCookies, setLocalCookies] = useState(cookies);
+
     let [checkBox, setCheckBox] = useState(true);
 
     let [removeThing, setRemoveThing] = useState('');
@@ -50,9 +52,18 @@ function ObjectCookie(props) {
         // }
 
 
+
+        if (cookies.symptomComponents === undefined) {
+            setCookie('symptomComponents', [1], { path: '/' });
+            setCookie('symptom1', '', { path: '/' });
+        }
+
+
         console.log('Cookie:', cookies);
         console.log('Local Cookie object', localCookies);
     }, [cookies])
+
+
 
     //___________________________________________#nAthAn___________________________________________
     // This function can handle the submit for every single input field this project will have 
@@ -81,7 +92,7 @@ function ObjectCookie(props) {
 
     return (
         <>
-            <p>ObjectCookie So Far:</p>
+            <p>Cookie Object :</p>
 
             <p>Thing to Remove: {removeThing}</p>
 
@@ -89,7 +100,31 @@ function ObjectCookie(props) {
             <p>Local Cookie Object: {renderLocalCookie()}</p>
             <p>THE Cookie Object: {renderTHECookie()}</p>
 
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>Symptom Components:</p>
 
+            {cookies.symptomComponents &&
+
+                localCookies.symptomComponents.map((value, i) =>
+                    <SymptomForm
+                        key={`symptomForm${value}`}
+                        symptomComponentNum={value}
+                        localCookies={localCookies}
+                        setLocalCookies={setLocalCookies} />
+                )}
+
+
+
+
+            <br />
+            <br />
+            <br />
+            <br />
             <p>Patient First Name:</p>
             <input
                 type="text"
