@@ -2,6 +2,7 @@ import { useCookies } from 'react-cookie';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import SymptomForm from '../SymptomForm/SymptomForm'
+import { useHistory, useParams } from 'react-router-dom';
 
 
 
@@ -15,53 +16,41 @@ function ObjectCookie(props) {
 
     let [removeThing, setRemoveThing] = useState('');
 
+    const { id } = useParams();
+    const history = useHistory();
+
 
     useEffect(() => {
-        if (cookies.patientFirstName === undefined) {
+        // If there are no cookies stored, generate a new cookie template
+        if (!id) {
             setCookie('patientFirstName', '', { path: '/' });
-        }
-        if (cookies.patientLastName === undefined) {
             setCookie('patientLastName', '', { path: '/' });
-        }
-        if (cookies.bloodType === undefined) {
             setCookie('bloodType', '', { path: '/' });
-        }
-        if (cookies.patientIDNumber === undefined) {
             setCookie('patientIDNumber', '', { path: '/' });
-        }
-        if (cookies.eventSummary === undefined) {
             setCookie('eventSummary', '', { path: '/' });
-        }
-        if (cookies.eventDay === undefined) {
             setCookie('eventDay', '', { path: '/' });
-        }
-        if (cookies.patientBirthDay === undefined) {
             setCookie('patientBirthDay', '', { path: '/' });
-        }
-        if (cookies.patientBirthMonth === undefined) {
             setCookie('patientBirthMonth', '', { path: '/' });
-        }
-        if (cookies.patientBirthYear === undefined) {
             setCookie('patientBirthYear', '', { path: '/' });
-        }
-        if (cookies.woot === undefined) {
             setCookie('woot', false, { path: '/' });
+            setCookie('symptomComponents', [1], { path: '/' });
+            setCookie('symptom1', '', { path: '/' });
         }
+        if (!id && cookies) {
+            history.push(`/1`);
+        }
+        
+        
         // if (cookies.dopewoot === undefined) {
         //     setCookie('dopewoot', '', { path: '/' });
         // }
 
 
 
-        if (cookies.symptomComponents === undefined) {
-            setCookie('symptomComponents', [1], { path: '/' });
-            setCookie('symptom1', '', { path: '/' });
-        }
-
 
         console.log('Cookie:', cookies);
         console.log('Local Cookie object', localCookies);
-    }, [cookies])
+    }, [cookies, id])
 
 
 
@@ -82,13 +71,13 @@ function ObjectCookie(props) {
 
 
 
-    function renderTHECookie() {
-        return JSON.stringify(cookies);
-    }
+    // function renderTHECookie() {
+    //     return JSON.stringify(cookies);
+    // }
 
-    function renderLocalCookie() {
-        return JSON.stringify(localCookies);
-    }
+    // function renderLocalCookie() {
+    //     return JSON.stringify(localCookies);
+    // }
 
     return (
         <>
@@ -97,8 +86,8 @@ function ObjectCookie(props) {
             <p>Thing to Remove: {removeThing}</p>
 
             {/* Display Global cookie and Local cookie object  */}
-            <p>Local Cookie Object: {renderLocalCookie()}</p>
-            <p>THE Cookie Object: {renderTHECookie()}</p>
+            <p>Local Cookie Object: {localCookies && JSON.stringify(localCookies)}</p>
+            <p>THE Cookie Object: {cookies && JSON.stringify(cookies)}</p>
 
             <br />
             <br />
@@ -108,15 +97,22 @@ function ObjectCookie(props) {
             <br />
             <p>Symptom Components:</p>
 
-            {cookies.symptomComponents &&
-
+            {cookies.symptomComponents ?
+            
                 localCookies.symptomComponents.map((value, i) =>
                     <SymptomForm
                         key={`symptomForm${value}`}
                         symptomComponentNum={value}
                         localCookies={localCookies}
                         setLocalCookies={setLocalCookies} />
-                )}
+                )
+                :
+                <SymptomForm
+                        key={`symptomForm1`}
+                        symptomComponentNum={1}
+                        localCookies={localCookies}
+                        setLocalCookies={setLocalCookies} />
+            }
 
 
 

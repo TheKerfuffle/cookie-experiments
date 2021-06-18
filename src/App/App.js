@@ -1,21 +1,25 @@
-import { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
 import './App.css';
-import UnivCookie from '../UnivCookie/UnivCookie';
-import RCookie from '../RCookie/RCookie';
 import ObjectCookie from '../ObjectCookie/ObjectCookie';
+import {
+  HashRouter as Router,
+  Route,
+} from 'react-router-dom';
 
 function App() {
 
   return (
     <div className="App">
 
-      {/* <UnivCookie />
+      <Router>
 
-      <RCookie /> */}
+        <Route
+          // shows Object Cookie Page
+          path="/"
+        >
+          <ObjectCookie />
+        </Route>
 
-      <ObjectCookie />
-
+      </Router>
     </div>
   );
 }
